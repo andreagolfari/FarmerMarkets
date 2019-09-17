@@ -1,0 +1,24 @@
+---
+title: "NYC Farmer Markets"
+date: "September 17, 2019"
+output: html_document
+---
+
+```{r setup, echo = TRUE, message = FALSE}
+# install.packages("leaflet")
+library(leaflet); library(dplyr)
+```
+
+```{r map, echo = TRUE}
+markets <- read.csv("Data/markets.csv")
+
+markets_map <- markets %>% 
+        select(Latitude, Longitude, Name) %>% 
+        leaflet() %>%
+        addTiles() %>% 
+        addMarkers(lat = ~ Latitude, lng = ~ Longitude, popup = ~ as.character(Name))
+
+markets_map
+```
+
+
